@@ -14,16 +14,20 @@ class Generator:
 
     def generate(self, query, context):
         prompt = f"""
-        Answer the question using the context below.
+        You are a helpful AI assistant.
+
+        Use the context below if it is useful.
+        If the context is not enough, you can use your own knowledge to answer.
 
         Context:
         {context}
 
         Question:
         {query}
+
+        Answer clearly and helpfully:
         """
+
         response = self.llm.invoke(prompt)
         return response.content
 
-    def simple_generate(self, query):
-        return self.llm.invoke(query).content

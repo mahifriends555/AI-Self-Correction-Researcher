@@ -1,25 +1,23 @@
-
 # 🤖 AI Self-Correction Researcher (Agentic RAG)
 
-An advanced NLP project implementing **Agentic Retrieval-Augmented Generation (RAG)** with **Self-Correction**.
+An advanced NLP project implementing **Agentic Retrieval-Augmented Generation (RAG)** with a **self-correction loop**.
 
-This system mimics how modern AI systems (like ChatGPT / Perplexity) work:
+This system simulates modern AI assistants by:
 
-* Retrieve relevant information
-* Generate answers
-* Critically evaluate responses
-* Improve answers iteratively
+* Retrieving relevant information (FAISS + Wikipedia)
+* Generating answers using LLMs
+* Evaluating responses with a critic module
+* Iteratively improving answers
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-* ✅ Basic RAG (Retrieval + Generation)
 * 🧠 Agent-based decision making
-* 🔁 Self-correction loop (Critic module)
-* 📚 Vector database (FAISS)
+* 🔁 Self-correction (feedback loop)
+* 📚 Hybrid retrieval (Vector DB + Wikipedia)
 * 💬 LLM integration (OpenAI / Gemini)
-* 🧪 Notebook-first development approach
+* 🌐 FastAPI backend for real-time queries
 
 ---
 
@@ -28,25 +26,10 @@ This system mimics how modern AI systems (like ChatGPT / Perplexity) work:
 ```
 AI-Self-Correction-Researcher/
 │
-├── notebooks/              # Experimentation (start here)
-│   ├── 01_basic_rag.ipynb
-│   ├── 02_agentic_rag.ipynb
-│   └── 03_self_correction.ipynb
-│
-├── core/                   # Core modules (production later)
-│   ├── retriever.py
-│   ├── generator.py
-│   ├── agent.py
-│   ├── critic.py
-│
-├── pipelines/
-├── prompts/
-├── data/
-├── vectorstore/
-├── utils/
-├── app/
-├── experiments/
-│
+├── core/        # Agent, Retriever, Generator, Critic
+├── pipelines/   # RAG orchestration
+├── app/         # FastAPI app
+├── notebooks/   # Experiments
 ├── .env
 ├── requirements.txt
 └── README.md
@@ -54,101 +37,66 @@ AI-Self-Correction-Researcher/
 
 ---
 
-## ⚙️ Setup Instructions
-
-### 1. Clone Repository
+## ⚙️ Setup
 
 ```bash
 git clone https://github.com/mahifriends555/AI-Self-Correction-Researcher.git
 cd AI-Self-Correction-Researcher
-```
 
----
-
-### 2. Create Environment
-
-```bash
 conda create -n rag_Agent python=3.10 -y
 conda activate rag_Agent
-```
 
----
-
-### 3. Install Dependencies
-
-```bash
 pip install -r requirements.txt
 ```
 
----
-
-### 4. Add API Keys
-
-Create a `.env` file:
+Create `.env`:
 
 ```
-OPENAI_API_KEY=your_openai_key
-GOOGLE_API_KEY=your_gemini_key
+OPENAI_API_KEY=your_key
+GOOGLE_API_KEY=your_key
 ```
 
 ---
 
-## 🧪 How to Run (Notebook First)
+## ▶️ Run API
 
-Start with:
-
-```
-notebooks/01_basic_rag.ipynb
+```bash
+python -m uvicorn app.app:app --reload
 ```
 
-Then progress to:
-
-* Agentic RAG
-* Self-Correction system
-
----
-
-## 🧠 How It Works
+Open:
 
 ```
-User Query
-   ↓
-Retriever (FAISS)
-   ↓
-LLM Generator
-   ↓
-Critic (Self-Correction)
-   ↓
-Refinement Loop
-   ↓
-Final Answer
+http://127.0.0.1:8000/docs
 ```
 
 ---
 
-## 🔥 Future Improvements
+## 🧠 Workflow
 
-* ✅ Query rewriting agent
-* ✅ Hallucination detection
-* ✅ Multi-hop retrieval
-* ✅ MLflow tracking
-* ✅ FastAPI deployment
+```
+Query
+ ↓
+Agent (decide + rewrite)
+ ↓
+FAISS + Wikipedia
+ ↓
+LLM
+ ↓
+Critic → refine → final answer
+```
 
 ---
 
 ## 💡 Tech Stack
 
-* Python
+* Python, FastAPI
 * LangChain
-* OpenAI / Gemini APIs
-* FAISS (Vector DB)
-* Sentence Transformers
+* OpenAI / Gemini
+* FAISS, Sentence Transformers
 
 ---
 
 ## 📌 Author
 
-Mahif — AI/ML Enthusiast building real-world NLP systems 🚀
-
----
-
+Mahif — AI/ML Enthusiast 🚀

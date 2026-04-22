@@ -1,6 +1,6 @@
 ==============================================================================================================
 PROJECT STRUCTURE: AI-Self-Correction-Researcher
-GENERATED: 2026-04-22 21:56:10
+GENERATED: 2026-04-22 23:09:26
 ==============================================================================================================
 
 AI-Self-Correction-Researcher/
@@ -13,7 +13,8 @@ AI-Self-Correction-Researcher/
 │   ├── critic.py
 │   ├── evaluator.py
 │   ├── generator.py
-│   └── retriever.py
+│   ├── retriever.py
+│   └── web_loader.py
 ├── data/
 ├── experiments/
 ├── notebooks/
@@ -34,7 +35,9 @@ AI-Self-Correction-Researcher/
 │   └── logger.py
 ├── vectorstore/
 ├── .env
+├── .gitattributes
 ├── .gitignore
+├── 1_code.txt
 ├── 2_project_structure.txt
 ├── code.txt
 ├── code_Save.py
