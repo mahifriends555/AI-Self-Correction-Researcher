@@ -1,6 +1,6 @@
 
 langchain
-openai==0.28
+openai>=2.26.0
 faiss-cpu
 tiktoken
 python-dotenv
