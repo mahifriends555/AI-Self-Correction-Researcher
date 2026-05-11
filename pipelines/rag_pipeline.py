@@ -7,8 +7,8 @@ from core.web_loader import WebLoader
 
 
 class RAGPipeline:
-    def __init__(self, documents):
-        self.retriever = Retriever(documents)
+    def __init__(self, retriever):      # ← change parameter name
+        self.retriever = retriever      # ← just assign directly
         self.generator = Generator()
         self.agent = Agent(self.generator.llm)
         self.critic = Critic(self.generator.llm)

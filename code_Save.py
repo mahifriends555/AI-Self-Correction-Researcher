@@ -28,7 +28,11 @@ EXCLUDE_DIRS = {
     "output",
     ".vscode",
     ".pytest_cache",
-    "rag_Agent"
+    "rag_Agent",
+    "1_code.txt",
+    "2_project_structure.txt",
+    "code_Save.py",
+    
 }
 
 def safe_read_text(file_path: Path) -> str:
