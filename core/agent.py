@@ -5,10 +5,12 @@ class Agent:
 
     def should_retrieve(self, query):
         prompt = f"""
-        Decide if the question requires external knowledge retrieval.
-
+        You are an assistant with access to a private document database.
+        Always retrieve from the database before answering any factual question.
+        
         Question: {query}
-
+        
+        Should we search the document database to answer this?
         Answer only YES or NO.
         """
         response = self.llm.invoke(prompt).content.lower()
