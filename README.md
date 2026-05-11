@@ -72,6 +72,20 @@ http://127.0.0.1:8000/docs
 
 ---
 
+Now These Will Work
+{
+  "query": "Tell me about India"
+}
+
+and
+
+{
+  "query": "Hello how are you?"
+}
+
+
+---
+
 ## 🧠 Workflow
 
 ```

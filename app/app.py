@@ -4,18 +4,17 @@ from app.schemas import QueryRequest, QueryResponse
 
 from pipelines.rag_pipeline import RAGPipeline
 
+from core.retriever import Retriever
+
+retriever = Retriever()
+retriever.load_and_index()
+
 # Initialize app
 app = FastAPI(title="Agentic RAG API")
 
-# Sample documents (later we load from files/db)
-documents = [
-    "Artificial Intelligence is the simulation of human intelligence.",
-    "RAG stands for Retrieval-Augmented Generation.",
-    "FAISS is used for similarity search."
-]
 
 # Initialize pipeline
-pipeline = RAGPipeline(documents)
+pipeline = RAGPipeline(retriever)
 
 
 @app.get("/")

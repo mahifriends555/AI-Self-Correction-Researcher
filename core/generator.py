@@ -1,9 +1,9 @@
-
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
 load_dotenv()
+
 
 class Generator:
     def __init__(self):
@@ -12,12 +12,13 @@ class Generator:
             temperature=0.3
         )
 
+    # 🔹 RAG generation
     def generate(self, query, context):
         prompt = f"""
         You are a helpful AI assistant.
 
-        Use the context below if it is useful.
-        If the context is not enough, you can use your own knowledge to answer.
+        Use the context below if useful.
+        If the context is insufficient, you may use your own knowledge.
 
         Context:
         {context}
@@ -25,9 +26,13 @@ class Generator:
         Question:
         {query}
 
-        Answer clearly and helpfully:
+        Answer clearly:
         """
 
         response = self.llm.invoke(prompt)
         return response.content
 
+    # 🔹 Direct LLM fallback
+    def simple_generate(self, query):
+        response = self.llm.invoke(query)
+        return response.content

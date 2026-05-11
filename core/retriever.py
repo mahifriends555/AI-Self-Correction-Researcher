@@ -1,29 +1,39 @@
-
-import wikipedia
-
-from langchain_core.documents import Document
-from langchain_community.embeddings import HuggingFaceEmbeddings
+import os
+from langchain_community.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
+from langchain_openai import OpenAIEmbeddings
 
 
 class Retriever:
-    def __init__(self, documents):
-        self.docs = [Document(page_content=text) for text in documents]
-
-        self.embedding = HuggingFaceEmbeddings(
-            model_name="all-MiniLM-L6-v2"
+    def __init__(self, pdf_dir: str = "data/pdfs"):
+        self.pdf_dir = pdf_dir
+        self.embeddings = OpenAIEmbeddings(
+            model="text-embedding-3-small"
         )
+        self.vectorstore = None
 
-        self.vectorstore = FAISS.from_documents(self.docs, self.embedding)
-        self.retriever = self.vectorstore.as_retriever()
+    def load_and_index(self):
+        docs = []
+        for file in os.listdir(self.pdf_dir):
+            if file.endswith(".pdf"):
+                path = os.path.join(self.pdf_dir, file)
+                loader = PyPDFLoader(path)
+                docs.extend(loader.load())
+                print(f"Loaded: {file}")
 
-    def get_docs(self, query):
-        return self.retriever.invoke(query)
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=500,
+            chunk_overlap=50
+        )
+        chunks = splitter.split_documents(docs)
+        print(f"Total chunks: {len(chunks)}")
 
-    # 🔥 NEW: Wikipedia retrieval
-    def search_wikipedia(self, query):
-        try:
-            summary = wikipedia.summary(query, sentences=3)
-            return summary
-        except:
-            return None
+        self.vectorstore = FAISS.from_documents(chunks, self.embeddings)
+        print("FAISS index ready.")
+
+    def get_docs(self, query: str, k: int = 4):
+        if not self.vectorstore:
+            raise ValueError("Run load_and_index() first.")
+        return self.vectorstore.similarity_search(query, k=k)
+    
